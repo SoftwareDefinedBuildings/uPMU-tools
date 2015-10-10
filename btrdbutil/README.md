@@ -4,5 +4,5 @@ The basic dependencies are covered by pip:
 
 ```
 apt-get install python-pip
-pip install btrdb-util
+pip install btrdbutil
 ```

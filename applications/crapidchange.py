@@ -4,7 +4,7 @@ Sublinear algorithm for detecting rapid changes in current magnitude
 @author Omid Ardakanian (ardakanian@berkeley.edu)
 """
 
-from btrdb-util import *
+from btrdbutil import *
 
 threshold = 525 # detecting voltage sag
 

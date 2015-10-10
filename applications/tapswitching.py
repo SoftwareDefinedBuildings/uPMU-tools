@@ -4,7 +4,7 @@ Sublinear algorithm for detecting tap switching events
 @author Omid Ardakanian (ardakanian@berkeley.edu)
 """
 
-from btrdb-util import *
+from btrdbutil import *
 
 threshold = 0.005 # detecting voltage sag
 

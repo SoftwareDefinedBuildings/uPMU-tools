@@ -4,7 +4,7 @@ Sublinear algorithm for detecting voltage sags
 @author Omid Ardakanian (ardakanian@berkeley.edu)
 """
 
-from btrdb-util import *
+from btrdbutil import *
 
 threshold = 0.10 # detecting voltage sag
 
