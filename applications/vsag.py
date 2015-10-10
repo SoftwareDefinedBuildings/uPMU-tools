@@ -4,7 +4,9 @@ Sublinear algorithm for detecting voltage sags
 @author Omid Ardakanian (ardakanian@berkeley.edu)
 """
 
-from btrdbutil import *
+from btrdbutil.btrdbwrapper import *
+from btrdbutil.btrsearch import *
+from btrdbutil.plotter import *
 
 threshold = 0.10 # detecting voltage sag
 
@@ -25,11 +27,11 @@ vsagStartsL1, pw = searchTree1.multi_resolution_search(startTime, endTime, thres
 
 searchTree2 = BTrSearch(btrdb_wrapper, pathStream2)
 searchTree2.accept(visitor)
-vsagStartsL2, _  = searchTree1.multi_resolution_search(startTime, endTime, threshold*baseVoltage)
+vsagStartsL2, _  = searchTree2.multi_resolution_search(startTime, endTime, threshold*baseVoltage)
 
 searchTree3 = BTrSearch(btrdb_wrapper, pathStream3)
 searchTree3.accept(visitor)
-vsagStartsL3, _  = searchTree1.multi_resolution_search(startTime, endTime, threshold*baseVoltage)
+vsagStartsL3, _  = searchTree3.multi_resolution_search(startTime, endTime, threshold*baseVoltage)
 
 allcases = list(set(vsagStartsL1) | set(vsagStartsL2) | set(vsagStartsL3))
 print len(allcases)

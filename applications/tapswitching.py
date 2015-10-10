@@ -4,7 +4,9 @@ Sublinear algorithm for detecting tap switching events
 @author Omid Ardakanian (ardakanian@berkeley.edu)
 """
 
-from btrdbutil import *
+from btrdbutil.btrdbwrapper import *
+from btrdbutil.btrsearch import *
+from btrdbutil.plotter import *
 
 threshold = 0.005 # detecting voltage sag
 
@@ -29,11 +31,11 @@ vchangeStarts1, pw = searchTree1.multi_resolution_search(startTime, endTime, thr
 
 searchTree2 = BTrSearch(btrdb_wrapper, distillate2)
 searchTree2.accept(visitor)
-vchangeStarts2, _  = searchTree1.multi_resolution_search(startTime, endTime, threshold)
+vchangeStarts2, _  = searchTree2.multi_resolution_search(startTime, endTime, threshold)
 
 searchTree3 = BTrSearch(btrdb_wrapper, distillate3)
 searchTree3.accept(visitor)
-vchangeStarts3, _  = searchTree1.multi_resolution_search(startTime, endTime, threshold)
+vchangeStarts3, _  = searchTree3.multi_resolution_search(startTime, endTime, threshold)
 
 allcases = list(set(vchangeStarts1) | set(vchangeStarts2) | set(vchangeStarts3))
 print len(allcases)

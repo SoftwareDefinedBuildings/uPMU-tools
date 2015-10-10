@@ -1,4 +1,4 @@
-# BTrDB-Util
+# BTrDBUtil
 
 The basic dependencies are covered by pip:
 

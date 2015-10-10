@@ -4,7 +4,9 @@ Sublinear algorithm for detecting rapid changes in current magnitude
 @author Omid Ardakanian (ardakanian@berkeley.edu)
 """
 
-from btrdbutil import *
+from btrdbutil.btrdbwrapper import *
+from btrdbutil.btrsearch import *
+from btrdbutil.plotter import *
 
 threshold = 525 # detecting voltage sag
 
@@ -28,11 +30,11 @@ cvarStarts1, pw = searchTree1.multi_resolution_search(startTime, endTime, thresh
 
 searchTree2 = BTrSearch(btrdb_wrapper, distillate2)
 searchTree2.accept(visitor)
-cvarStarts2, _  = searchTree1.multi_resolution_search(startTime, endTime, threshold)
+cvarStarts2, _  = searchTree2.multi_resolution_search(startTime, endTime, threshold)
 
 searchTree3 = BTrSearch(btrdb_wrapper, distillate3)
 searchTree3.accept(visitor)
-cvarStarts3, _  = searchTree1.multi_resolution_search(startTime, endTime, threshold)
+cvarStarts3, _  = searchTree3.multi_resolution_search(startTime, endTime, threshold)
 
 allcases = list(set(cvarStarts1) | set(cvarStarts2) | set(cvarStarts3))
 print len(allcases)
