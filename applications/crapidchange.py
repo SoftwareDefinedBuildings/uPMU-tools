@@ -8,14 +8,14 @@ from btrdbutil.btrdbwrapper import *
 from btrdbutil.btrsearch import *
 from btrdbutil.plotter import *
 
-threshold = 525 # detecting voltage sag
+threshold = 200 # detecting voltage sag
 
 startTime = "2015-07-01T00:00:00"
 endTime   = "2015-10-01T00:00:00"
 
-distillate1 = "/prod/RPU/building_1086/C1MAG-Delta"
-distillate2 = "/prod/RPU/building_1086/C2MAG-Delta"
-distillate3 = "/prod/RPU/building_1086/C3MAG-Delta"
+distillate1 = "/Production/RPU/Building_1086/CurrentDiff/Currentdiff_1/currentdifference"
+distillate2 = "/Production/RPU/Building_1086/CurrentDiff/Currentdiff_2/currentdifference"
+distillate3 = "/Production/RPU/Building_1086/CurrentDiff/Currentdiff_3/currentdifference"
 
 pathStream1 = "/upmu/RPU/building_1086/C1MAG"
 pathStream2 = "/upmu/RPU/building_1086/C2MAG"

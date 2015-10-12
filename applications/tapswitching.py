@@ -13,9 +13,9 @@ threshold = 0.005 # detecting voltage sag
 startTime = "2015-01-01T00:00:00"
 endTime   = "2015-08-01T00:00:00"
 
-distillate1 = "/prod/psl_alameda/L1MAG-MA"
-distillate2 = "/prod/psl_alameda/L2MAG-MA"
-distillate3 = "/prod/psl_alameda/L3MAG-MA"
+distillate1 = "/Production/psl_alameda/L1MAG-MA"
+distillate2 = "/Production/psl_alameda/L2MAG-MA"
+distillate3 = "/Production/psl_alameda/L3MAG-MA"
 
 pathStream1 = "/upmu/psl_alameda/L1MAG"
 pathStream2 = "/upmu/psl_alameda/L2MAG"
