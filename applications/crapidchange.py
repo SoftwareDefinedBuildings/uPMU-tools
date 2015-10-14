@@ -22,7 +22,7 @@ pathStream2 = "/upmu/RPU/building_1086/C2MAG"
 pathStream3 = "/upmu/RPU/building_1086/C3MAG"
 
 btrdb_wrapper = BTrDBWrapper()
-visitor = MaxAboveThreshold()
+visitor = MaxComparator()
 
 searchTree1 = BTrSearch(btrdb_wrapper, distillate1)
 searchTree1.accept(visitor)

@@ -18,7 +18,7 @@ pathStream2 = "/upmu/psl_alameda/L2MAG"
 pathStream3 = "/upmu/psl_alameda/L3MAG"
 
 btrdb_wrapper = BTrDBWrapper()
-visitor = MinMeanAbsDiffAboveThreshold()
+visitor = MinMeanDiffComparator()
 
 searchTree1 = BTrSearch(btrdb_wrapper, pathStream1)
 baseVoltage = searchTree1.find_mean(startTime, endTime)
