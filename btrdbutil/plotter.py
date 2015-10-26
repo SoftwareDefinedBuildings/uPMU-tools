@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import datetime
+import pytz
 
 def plot_3phase_current_rawdata(fine1, fine2, fine3):
     ax1 = plt.subplot(313)
@@ -18,7 +19,7 @@ def plot_3phase_current_rawdata(fine1, fine2, fine3):
     plt.setp( ax3.get_xticklabels(), visible=False)
 
     plt.xlim(fine1[0][0], fine1[-1][0])
-    plt.title(datetime.datetime.fromtimestamp(fine1[0][0]/1000000000).strftime('%Y-%m-%d %H:%M:%S')+'   to   '+datetime.datetime.fromtimestamp(fine1[-1][0]/1000000000).strftime('%Y-%m-%d %H:%M:%S'))
+    plt.title(datetime.datetime.fromtimestamp(fine1[0][0]/1000000000, pytz.timezone('America/Los_Angeles')).strftime('%Y-%m-%d %H:%M:%S')+'   to   '+datetime.datetime.fromtimestamp(fine1[-1][0]/1000000000, pytz.timezone('America/Los_Angeles')).strftime('%Y-%m-%d %H:%M:%S'))
     plt.tight_layout()
     plt.show()
 
@@ -39,7 +40,7 @@ def plot_3phase_voltage_rawdata(fine1, fine2, fine3, BVolt=1):
     plt.setp( ax3.get_xticklabels(), visible=False)
 
     plt.xlim(fine1[0][0], fine1[-1][0])
-    plt.title(datetime.datetime.fromtimestamp(fine1[0][0]/1000000000).strftime('%Y-%m-%d %H:%M:%S')+'   to   '+datetime.datetime.fromtimestamp(fine1[-1][0]/1000000000).strftime('%Y-%m-%d %H:%M:%S'))
+    plt.title(datetime.datetime.fromtimestamp(fine1[0][0]/1000000000, pytz.timezone('America/Los_Angeles')).strftime('%Y-%m-%d %H:%M:%S')+'   to   '+datetime.datetime.fromtimestamp(fine1[-1][0]/1000000000, pytz.timezone('America/Los_Angeles')).strftime('%Y-%m-%d %H:%M:%S'))
     plt.tight_layout()
     plt.show()
 
@@ -47,5 +48,5 @@ def plot_rawdata(fine, threshold):
     plt.plot(*zip(*fine))
     plt.xlim(fine[0][0], fine[-1][0])
     plt.axhline(1-threshold, color="r")
-    plt.title(datetime.datetime.fromtimestamp(fine[0][0]/1000000000).strftime('%Y-%m-%d %H:%M:%S'))
+    plt.title(datetime.datetime.fromtimestamp(fine[0][0]/1000000000, pytz.timezone('America/Los_Angeles')).strftime('%Y-%m-%d %H:%M:%S'))
     plt.show()

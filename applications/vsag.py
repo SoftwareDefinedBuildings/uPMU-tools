@@ -10,19 +10,22 @@ from btrdbutil.plotter import *
 
 threshold = 0.10 # detecting voltage sag
 
-startTime = "2015-01-01T00:00:00"
-endTime   = "2015-08-01T00:00:00"
+# UTC time -> to get local time -08:00 if PST, -07:00 if PDT
+startTime = "2015-08-01T00:00:00"
+endTime   = "2015-10-15T21:00:00"
 
-pathStream1 = "/upmu/psl_alameda/L1MAG"
-pathStream2 = "/upmu/psl_alameda/L2MAG"
-pathStream3 = "/upmu/psl_alameda/L3MAG"
+pathStream1 = "/upmu/RPU/Hunter_1224/L1MAG"
+pathStream2 = "/upmu/RPU/Hunter_1224/L2MAG"
+pathStream3 = "/upmu/RPU/Hunter_1224/L3MAG"
 
 btrdb_wrapper = BTrDBWrapper()
 visitor = MinMeanDiffComparator()
 
 searchTree1 = BTrSearch(btrdb_wrapper, pathStream1)
-baseVoltage = searchTree1.find_mean(startTime, endTime)
 searchTree1.accept(visitor)
+
+baseVoltage = searchTree1.find_mean(startTime, endTime)
+print "The estimated nominal voltage is "+str(baseVoltage)+"V"
 vsagStartsL1, pw = searchTree1.multi_resolution_search(startTime, endTime, threshold*baseVoltage)
 
 searchTree2 = BTrSearch(btrdb_wrapper, pathStream2)

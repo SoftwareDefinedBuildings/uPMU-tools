@@ -9,14 +9,14 @@ class BTrSearch(object):
     def accept(self, visitor):
         self.visitor = visitor
 
-    def multi_resolution_search(self, startStr, endStr, threshold=0.1):
-        startTime = btrdb.date(startStr)
-        endTime   = btrdb.date(endStr)
+    def multi_resolution_search(self, startUTCTimeStr, endUTCTimeStr, threshold=0.1):
+        startTime = btrdb.date(startUTCTimeStr)     # returns nanoseconds since the epoch
+        endTime   = btrdb.date(endUTCTimeStr)       # returns nanoseconds since the epoch
         return self.visitor.traverse(self.uuid, self.connection, startTime, endTime, threshold)
 
-    def find_mean(self, startStr, endStr):
-        startTime = btrdb.date(startStr)
-        endTime   = btrdb.date(endStr)
+    def find_mean(self, startUTCTimeStr, endUTCTimeStr):
+        startTime = btrdb.date(startUTCTimeStr)     # returns nanoseconds since the epoch
+        endTime   = btrdb.date(endUTCTimeStr)       # returns nanoseconds since the epoch
         summation = 0
         count = 0
         pw = int(math.ceil(math.log(endTime-startTime, 2)))-11
@@ -28,6 +28,10 @@ class BTrSearch(object):
 
 class Visitor:
     def visit(self, points, threshold): pass
+
+    def traverse_fixed_depth(self, uuid, cn, start, end, threshold):
+        FINAL_RES = 26
+        return self.traverse(uuid, cn, start, end, threshold, FINAL_RES)
 
     def traverse(self, uuid, cn, start, end, threshold, finalresolution=23):
         pw = int(math.ceil(math.log(end-start, 2)))-11
