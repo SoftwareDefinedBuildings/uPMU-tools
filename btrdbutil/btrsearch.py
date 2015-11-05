@@ -71,7 +71,8 @@ class Visitor:
                 if len(startsTemp) > 0 and plotFlag:
                     visualize_tree_traversal([x[0] for x in coarse], operandsTemp, threshold)
                 elif len(startsTemp) == 0:
-                    print 'Warning!'
+                    # print 'Warning!'
+                    pass
 
             startsL1 = startsL2
 
