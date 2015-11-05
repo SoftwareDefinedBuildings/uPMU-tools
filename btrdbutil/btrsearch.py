@@ -19,7 +19,7 @@ class BTrSearch(object):
     def multi_resolution_search(self, startUTCTimeStr, endUTCTimeStr, threshold=0.1, plotFlag=False, benchmarkFlag=False):
         startTime = btrdb.date(startUTCTimeStr)     # returns nanoseconds since the epoch
         endTime   = btrdb.date(endUTCTimeStr)       # returns nanoseconds since the epoch
-        return self.visitor.traverse(self.uuid, self.connection, startTime, endTime, threshold, plotFlag, benchmarkFlag)
+        return self.visitor.traverse(self.uuid, self.connection, startTime, endTime, threshold, plotFlag=plotFlag, benchmarkFlag=benchmarkFlag)
 
     def find_mean(self, startUTCTimeStr, endUTCTimeStr):
         startTime = btrdb.date(startUTCTimeStr)     # returns nanoseconds since the epoch
@@ -70,7 +70,7 @@ class Visitor:
                 startsL2.extend(startsTemp)
                 if len(startsTemp) > 0 and plotFlag:
                     visualize_tree_traversal([x[0] for x in coarse], operandsTemp, threshold)
-                else if len(startsTemp) == 0:
+                elif len(startsTemp) == 0:
                     print 'Warning!'
 
             startsL1 = startsL2

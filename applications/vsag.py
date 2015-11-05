@@ -11,6 +11,8 @@ import timeit
 import matplotlib.pyplot as plt
 
 threshold = 0.10 # detecting voltage sag
+plotFlag = True
+benchmarkFlag = False
 
 # UTC time -> to get local time -08:00 if PST, -07:00 if PDT
 startTime = "2014-12-03T00:00:00"
@@ -32,30 +34,34 @@ baseVoltage, count = searchTree1.find_mean(startTime, endTime)
 #print "Total points in the time series  "+str(count)
 #threshold = threshold*baseVoltage
 
-vsagStartsL1, pw = searchTree1.multi_resolution_search(startTime, endTime, threshold)
-# for st in vsagStartsL1:
-#     wrapped = decorate(btrdb_wrapper.get_rawdata, pathStream1, st, pw)
-#     print "execution time of pw = 23 is " + str(timeit.timeit(wrapped, number=100)/100)
+vsagStartsL1, pw = searchTree1.multi_resolution_search(startTime, endTime, threshold, plotFlag, benchmarkFlag)
+if benchmarkFlag:
+    for st in vsagStartsL1:
+        wrapped = decorate(btrdb_wrapper.get_rawdata, pathStream1, st, pw)
+        print "execution time of pw = 23 is " + str(timeit.timeit(wrapped, number=100)/100)
 
 searchTree2 = BTrSearch(btrdb_wrapper, pathStream2)
 searchTree2.accept(visitor)
-vsagStartsL2, _  = searchTree2.multi_resolution_search(startTime, endTime, threshold)
-# for st in vsagStartsL2:
-#     wrapped = decorate(btrdb_wrapper.get_rawdata, pathStream2, st, pw)
-#     print "execution time of pw = 23 is " + str(timeit.timeit(wrapped, number=100)/100)
+vsagStartsL2, _  = searchTree2.multi_resolution_search(startTime, endTime, threshold, plotFlag, benchmarkFlag)
+if benchmarkFlag:
+    for st in vsagStartsL2:
+        wrapped = decorate(btrdb_wrapper.get_rawdata, pathStream2, st, pw)
+        print "execution time of pw = 23 is " + str(timeit.timeit(wrapped, number=100)/100)
 
 searchTree3 = BTrSearch(btrdb_wrapper, pathStream3)
 searchTree3.accept(visitor)
-vsagStartsL3, _  = searchTree3.multi_resolution_search(startTime, endTime, threshold)
-# for st in vsagStartsL3:
-#     wrapped = decorate(btrdb_wrapper.get_rawdata, pathStream3, st, pw)
-#     print "execution time of pw = 23 is " + str(timeit.timeit(wrapped, number=100)/100)
+vsagStartsL3, _  = searchTree3.multi_resolution_search(startTime, endTime, threshold, plotFlag, benchmarkFlag)
+if benchmarkFlag:
+    for st in vsagStartsL3:
+        wrapped = decorate(btrdb_wrapper.get_rawdata, pathStream3, st, pw)
+        print "execution time of pw = 23 is " + str(timeit.timeit(wrapped, number=100)/100)
 
 allcases = list(set(vsagStartsL1) | set(vsagStartsL2) | set(vsagStartsL3))
 print len(allcases)
 
-for st in allcases:
-    plot_3phase_voltage_rawdata(btrdb_wrapper.get_rawdata(pathStream1, st, pw),btrdb_wrapper.get_rawdata(pathStream2, st, pw),btrdb_wrapper.get_rawdata(pathStream3, st, pw),baseVoltage)
+if plotFlag:
+    for st in allcases:
+        plot_3phase_voltage_rawdata(btrdb_wrapper.get_rawdata(pathStream1, st, pw),btrdb_wrapper.get_rawdata(pathStream2, st, pw),btrdb_wrapper.get_rawdata(pathStream3, st, pw),baseVoltage)
 
 
 # plt.title('Latency of multi-resolution search')
