@@ -47,15 +47,22 @@ def plot_3phase_voltage_rawdata(fine1, fine2, fine3, BVolt=1):
     plt.setp( ax3.get_xticklabels(), visible=False)
 
     plt.xlim(fine1[0][0], fine1[-1][0])
+    ax1.xaxis.set_ticks(np.arange(fine1[0][0],fine1[-1][0]+1,np.floor(fine1[-1][0]+1-fine1[0][0])/8))
     plt.title('date : '+datetime.datetime.fromtimestamp(fine1[0][0]/1000000000, pytz.timezone('America/Los_Angeles')).strftime('%Y-%m-%d'))
     plt.tight_layout()
     plt.show()
 
-def plot_rawdata(fine, threshold):
+def plot_rawdata(fine):
+    formatter = FuncFormatter(formatter_time)
+
+    ax = plt.gca()
+    ax.xaxis.set_major_formatter(formatter)
+    ax.set_ylabel('Voltage')
+
     plt.plot(*zip(*fine))
     plt.xlim(fine[0][0], fine[-1][0])
-    plt.axhline(1-threshold, color="r")
-    plt.title(datetime.datetime.fromtimestamp(fine[0][0]/1000000000, pytz.timezone('America/Los_Angeles')).strftime('%Y-%m-%d %H:%M:%S'))
+    plt.xticks(np.arange(fine[0][0],fine[-1][0]+1,np.floor(fine[-1][0]+1-fine[0][0])/12), rotation=30)
+    plt.title('date : '+datetime.datetime.fromtimestamp(fine[0][0]/1000000000, pytz.timezone('America/Los_Angeles')).strftime('%Y-%m-%d'))
     plt.show()
 
 def visualize_tree_traversal(times,values,threshold):
@@ -71,7 +78,6 @@ def visualize_tree_traversal(times,values,threshold):
         plt.title("decision variable - " + datetime.datetime.fromtimestamp(max(times)/1000000000,  pytz.timezone('America/Los_Angeles')).strftime('%Y-%m-%d'))
     plt.gca().xaxis.set_major_formatter(formatter)
     plt.xticks(np.arange(min(times),max(times)+1,np.floor(max(times)+1-min(times))/12), rotation=30)
-
     plt.show()
 
 def formatter_date(t, pos):

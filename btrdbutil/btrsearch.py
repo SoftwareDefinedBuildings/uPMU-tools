@@ -70,8 +70,12 @@ class Visitor:
                 startsL2.extend(startsTemp)
                 if len(startsTemp) > 0 and plotFlag:
                     visualize_tree_traversal([x[0] for x in coarse], operandsTemp, threshold)
+                    if pw <= finalresolution + 11:
+                        for sts in startsTemp:
+                            plot_rawdata([(x[0],x[2]) for x in cn.get_stat(uuid, sts, sts + (1<<pw), 23)])
+
                 elif len(startsTemp) == 0:
-                    # print 'Warning!'
+                    #print 'Warning!'
                     pass
 
             startsL1 = startsL2
