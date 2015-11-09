@@ -63,17 +63,21 @@ class Visitor:
                 start_time = timeit.default_timer()
                 coarse = cn.get_stat(uuid, st, st + (1<<(pw+11)), pw)
                 startsTemp, operandsTemp = self.visit(coarse, threshold)
-
-                if benchmarkFlag:
-                    elapsed = timeit.default_timer() - start_time
-
                 startsL2.extend(startsTemp)
-                if len(startsTemp) > 0 and plotFlag:
-                    visualize_tree_traversal([x[0] for x in coarse], operandsTemp, threshold)
-                    if pw <= finalresolution + 11:
-                        for sts in startsTemp:
-                            plot_rawdata([(x[0],x[2]) for x in cn.get_stat(uuid, sts, sts + (1<<pw), 23)])
-
+                if len(startsTemp) > 0:
+                    if benchmarkFlag:
+                        elapsed = timeit.default_timer() - start_time
+                        print "the search completes in " + str(1000*elapsed) + "ms at depth " + str(depth)
+                    if plotFlag:
+                        visualize_tree_traversal([x[0] for x in coarse], operandsTemp, threshold)
+                        if pw <= finalresolution + 11:
+                            for sts in startsTemp:
+                                start_time = timeit.default_timer()
+                                raw = cn.get_stat(uuid, sts, sts + (1<<pw), 23)
+                                elapsed = timeit.default_timer() - start_time
+                                plot_rawdata([(x[0],x[2]) for x in raw])
+                                if benchmarkFlag:
+                                    print "raw data query completes in " + str(1000*elapsed) + "ms"
                 elif len(startsTemp) == 0:
                     #print 'Warning!'
                     pass
