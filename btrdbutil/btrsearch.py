@@ -49,12 +49,14 @@ class Visitor:
 
         if benchmarkFlag:
             elapsed = timeit.default_timer() - start_time
-            print "execution time of pw = "+ str(pw) + " is " + str(elapsed)
+            print "the search completes in " + str(1000*elapsed) + "ms at depth 1"
 
         if plotFlag:
             visualize_tree_traversal([x[0] for x in overview], operands, threshold)
 
+        depth = 1
         while pw > finalresolution + 11:
+            depth = depth + 1
             pw = pw - 11;
             startsL2 = []
             for st in startsL1:
@@ -64,8 +66,6 @@ class Visitor:
 
                 if benchmarkFlag:
                     elapsed = timeit.default_timer() - start_time
-                    for sts in startsTemp:
-                        print "execution time of pw = "+ str(pw) + " is " + str(elapsed)
 
                 startsL2.extend(startsTemp)
                 if len(startsTemp) > 0 and plotFlag:
