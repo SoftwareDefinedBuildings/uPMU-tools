@@ -3,7 +3,6 @@ setup(
   name = 'btrdbutil',
   packages = ['btrdbutil'],
   version = '0.1',
-  install_requires = [''],
   description = 'Python bindings for multi-resolution retrieval from BTrDB',
   author = 'Omid Ardakanian',
   author_email = 'ardakanian@berkeley.edu',

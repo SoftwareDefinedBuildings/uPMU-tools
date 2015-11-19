@@ -21,6 +21,11 @@ class BTrSearch(object):
         endTime   = btrdb.date(endUTCTimeStr)       # returns nanoseconds since the epoch
         return self.visitor.traverse(self.uuid, self.connection, startTime, endTime, threshold, plotFlag=plotFlag, benchmarkFlag=benchmarkFlag)
 
+    def multi_resolution_search_fw(self, startUTCTimeStr, endUTCTimeStr, threshold=0.1, final_res=26, plotFlag=False, benchmarkFlag=False):
+        startTime = btrdb.date(startUTCTimeStr)     # returns nanoseconds since the epoch
+        endTime   = btrdb.date(endUTCTimeStr)       # returns nanoseconds since the epoch
+        return self.visitor.traverse(self.uuid, self.connection, startTime, endTime, threshold, final_res, plotFlag=plotFlag, benchmarkFlag=benchmarkFlag)
+
     def find_mean(self, startUTCTimeStr, endUTCTimeStr):
         startTime = btrdb.date(startUTCTimeStr)     # returns nanoseconds since the epoch
         endTime   = btrdb.date(endUTCTimeStr)       # returns nanoseconds since the epoch
@@ -35,10 +40,6 @@ class BTrSearch(object):
 
 class Visitor:
     def visit(self, points, threshold): pass
-
-    def traverse_fixed_depth(self, uuid, cn, start, end, threshold):
-        FINAL_RES = 26
-        return self.traverse(uuid, cn, start, end, threshold, FINAL_RES)
 
     def traverse(self, uuid, cn, start, end, threshold, finalresolution=23, plotFlag=False, benchmarkFlag=False):
         pw = int(math.ceil(math.log(end-start, 2)))-11
@@ -64,6 +65,7 @@ class Visitor:
                 coarse = cn.get_stat(uuid, st, st + (1<<(pw+11)), pw)
                 startsTemp, operandsTemp = self.visit(coarse, threshold)
                 startsL2.extend(startsTemp)
+                
                 if len(startsTemp) > 0:
                     if benchmarkFlag:
                         elapsed = timeit.default_timer() - start_time
