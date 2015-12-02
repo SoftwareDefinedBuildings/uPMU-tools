@@ -16,12 +16,12 @@ class BTrSearch(object):
     def accept(self, visitor):
         self.visitor = visitor
 
-    def multi_resolution_search(self, startUTCTimeStr, endUTCTimeStr, threshold=0.1, plotFlag=False, benchmarkFlag=False, ylabel):
+    def multi_resolution_search(self, startUTCTimeStr, endUTCTimeStr, ylabel, threshold=0.1, plotFlag=False, benchmarkFlag=False):
         startTime = btrdb.date(startUTCTimeStr)     # returns nanoseconds since the epoch
         endTime   = btrdb.date(endUTCTimeStr)       # returns nanoseconds since the epoch
         return self.visitor.traverse(self.uuid, self.connection, startTime, endTime, threshold, ylabel, plotFlag=plotFlag, benchmarkFlag=benchmarkFlag)
 
-    def multi_resolution_search_fw(self, startUTCTimeStr, endUTCTimeStr, threshold=0.1, final_res=26, plotFlag=False, benchmarkFlag=False, ylabel):
+    def multi_resolution_search_fw(self, startUTCTimeStr, endUTCTimeStr, ylabel, threshold=0.1, final_res=26, plotFlag=False, benchmarkFlag=False):
         startTime = btrdb.date(startUTCTimeStr)     # returns nanoseconds since the epoch
         endTime   = btrdb.date(endUTCTimeStr)       # returns nanoseconds since the epoch
         return self.visitor.traverse(self.uuid, self.connection, startTime, endTime, threshold, ylabel, final_res, plotFlag=plotFlag, benchmarkFlag=benchmarkFlag)

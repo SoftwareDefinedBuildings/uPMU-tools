@@ -26,15 +26,15 @@ visitor = MaxComparator()
 
 searchTree1 = BTrSearch(btrdb_wrapper, distillate1)
 searchTree1.accept(visitor)
-cvarStarts1, pw = searchTree1.multi_resolution_search(startTime, endTime, threshold, 'Current')
+cvarStarts1, pw = searchTree1.multi_resolution_search(startTime, endTime, 'Current', threshold)
 
 searchTree2 = BTrSearch(btrdb_wrapper, distillate2)
 searchTree2.accept(visitor)
-cvarStarts2, _  = searchTree2.multi_resolution_search(startTime, endTime, threshold, 'Current')
+cvarStarts2, _  = searchTree2.multi_resolution_search(startTime, endTime, 'Current', threshold)
 
 searchTree3 = BTrSearch(btrdb_wrapper, distillate3)
 searchTree3.accept(visitor)
-cvarStarts3, _  = searchTree3.multi_resolution_search(startTime, endTime, threshold, 'Current')
+cvarStarts3, _  = searchTree3.multi_resolution_search(startTime, endTime, 'Current', threshold)
 
 allcases = list(set(cvarStarts1) | set(cvarStarts2) | set(cvarStarts3))
 print len(allcases)

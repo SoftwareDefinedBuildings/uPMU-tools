@@ -34,7 +34,7 @@ baseVoltage, count = searchTree1.find_mean(startTime, endTime)
 #print "Total points in the time series  "+str(count)
 #threshold = threshold*baseVoltage
 
-vsagStartsL1, pw = searchTree1.multi_resolution_search_fw(startTime, endTime, threshold, 26, plotFlag, benchmarkFlag, 'Voltage')
+vsagStartsL1, pw = searchTree1.multi_resolution_search_fw(startTime, endTime, 'Voltage', threshold, 26, plotFlag, benchmarkFlag)
 if benchmarkFlag:
     for st in vsagStartsL1:
         wrapped = decorate(btrdb_wrapper.get_rawdata, pathStream1, st, pw)
@@ -42,7 +42,7 @@ if benchmarkFlag:
 
 searchTree2 = BTrSearch(btrdb_wrapper, pathStream2)
 searchTree2.accept(visitor)
-vsagStartsL2, _  = searchTree2.multi_resolution_search(startTime, endTime, threshold, plotFlag, benchmarkFlag, 'Voltage')
+vsagStartsL2, _  = searchTree2.multi_resolution_search(startTime, endTime, 'Voltage', threshold, plotFlag, benchmarkFlag)
 if benchmarkFlag:
     for st in vsagStartsL2:
         wrapped = decorate(btrdb_wrapper.get_rawdata, pathStream2, st, pw)
@@ -50,7 +50,7 @@ if benchmarkFlag:
 
 searchTree3 = BTrSearch(btrdb_wrapper, pathStream3)
 searchTree3.accept(visitor)
-vsagStartsL3, _  = searchTree3.multi_resolution_search(startTime, endTime, threshold, plotFlag, benchmarkFlag, 'Voltage')
+vsagStartsL3, _  = searchTree3.multi_resolution_search(startTime, endTime, 'Voltage', threshold, plotFlag, benchmarkFlag)
 if benchmarkFlag:
     for st in vsagStartsL3:
         wrapped = decorate(btrdb_wrapper.get_rawdata, pathStream3, st, pw)

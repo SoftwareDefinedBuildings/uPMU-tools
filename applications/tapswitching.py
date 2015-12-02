@@ -27,15 +27,15 @@ visitor = MinMeanMaxMeanRatioComparator()
 searchTree1 = BTrSearch(btrdb_wrapper, distillate1)
 baseVoltage = searchTree1.find_mean(startTime, endTime)
 searchTree1.accept(visitor)
-vchangeStarts1, pw = searchTree1.multi_resolution_search(startTime, endTime, threshold, 'Voltage')
+vchangeStarts1, pw = searchTree1.multi_resolution_search(startTime, endTime, 'Voltage', threshold)
 
 searchTree2 = BTrSearch(btrdb_wrapper, distillate2)
 searchTree2.accept(visitor)
-vchangeStarts2, _  = searchTree2.multi_resolution_search(startTime, endTime, threshold, 'Voltage')
+vchangeStarts2, _  = searchTree2.multi_resolution_search(startTime, endTime, 'Voltage', threshold)
 
 searchTree3 = BTrSearch(btrdb_wrapper, distillate3)
 searchTree3.accept(visitor)
-vchangeStarts3, _  = searchTree3.multi_resolution_search(startTime, endTime, threshold, 'Voltage')
+vchangeStarts3, _  = searchTree3.multi_resolution_search(startTime, endTime, 'Voltage', threshold)
 
 allcases = list(set(vchangeStarts1) | set(vchangeStarts2) | set(vchangeStarts3))
 print len(allcases)
