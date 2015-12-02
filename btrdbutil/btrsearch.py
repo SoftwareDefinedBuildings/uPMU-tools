@@ -16,15 +16,15 @@ class BTrSearch(object):
     def accept(self, visitor):
         self.visitor = visitor
 
-    def multi_resolution_search(self, startUTCTimeStr, endUTCTimeStr, threshold=0.1, plotFlag=False, benchmarkFlag=False):
+    def multi_resolution_search(self, startUTCTimeStr, endUTCTimeStr, threshold=0.1, plotFlag=False, benchmarkFlag=False, ylabel):
         startTime = btrdb.date(startUTCTimeStr)     # returns nanoseconds since the epoch
         endTime   = btrdb.date(endUTCTimeStr)       # returns nanoseconds since the epoch
-        return self.visitor.traverse(self.uuid, self.connection, startTime, endTime, threshold, plotFlag=plotFlag, benchmarkFlag=benchmarkFlag)
+        return self.visitor.traverse(self.uuid, self.connection, startTime, endTime, threshold, ylabel, plotFlag=plotFlag, benchmarkFlag=benchmarkFlag)
 
-    def multi_resolution_search_fw(self, startUTCTimeStr, endUTCTimeStr, threshold=0.1, final_res=26, plotFlag=False, benchmarkFlag=False):
+    def multi_resolution_search_fw(self, startUTCTimeStr, endUTCTimeStr, threshold=0.1, final_res=26, plotFlag=False, benchmarkFlag=False, ylabel):
         startTime = btrdb.date(startUTCTimeStr)     # returns nanoseconds since the epoch
         endTime   = btrdb.date(endUTCTimeStr)       # returns nanoseconds since the epoch
-        return self.visitor.traverse(self.uuid, self.connection, startTime, endTime, threshold, final_res, plotFlag=plotFlag, benchmarkFlag=benchmarkFlag)
+        return self.visitor.traverse(self.uuid, self.connection, startTime, endTime, threshold, ylabel, final_res, plotFlag=plotFlag, benchmarkFlag=benchmarkFlag)
 
     def find_mean(self, startUTCTimeStr, endUTCTimeStr):
         startTime = btrdb.date(startUTCTimeStr)     # returns nanoseconds since the epoch
@@ -41,7 +41,7 @@ class BTrSearch(object):
 class Visitor:
     def visit(self, points, threshold): pass
 
-    def traverse(self, uuid, cn, start, end, threshold, finalresolution=23, plotFlag=False, benchmarkFlag=False):
+    def traverse(self, uuid, cn, start, end, threshold, ylabel, finalresolution=23, plotFlag=False, benchmarkFlag=False):
         pw = int(math.ceil(math.log(end-start, 2)))-11
 
         start_time = timeit.default_timer()
@@ -77,7 +77,7 @@ class Visitor:
                                 start_time = timeit.default_timer()
                                 raw = cn.get_stat(uuid, sts, sts + (1<<pw), 23)
                                 elapsed = timeit.default_timer() - start_time
-                                plot_rawdata([(x[0],x[2]) for x in raw])
+                                plot_rawdata([(x[0],x[2]) for x in raw], ylabel)
                                 if benchmarkFlag:
                                     print "raw data query completes in " + str(1000*elapsed) + "ms"
                 elif len(startsTemp) == 0:

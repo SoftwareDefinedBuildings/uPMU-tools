@@ -52,12 +52,12 @@ def plot_3phase_voltage_rawdata(fine1, fine2, fine3, BVolt=1):
     plt.tight_layout()
     plt.show()
 
-def plot_rawdata(fine):
+def plot_rawdata(fine, ylabel):
     formatter = FuncFormatter(formatter_time)
 
     ax = plt.gca()
     ax.xaxis.set_major_formatter(formatter)
-    ax.set_ylabel('Voltage')
+    ax.set_ylabel(ylabel)
 
     plt.plot(*zip(*fine))
     plt.xlim(fine[0][0], fine[-1][0])
